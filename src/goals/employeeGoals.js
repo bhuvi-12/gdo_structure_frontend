@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import getGoals from "./api";
+import { getGoals, deleteGoal } from "./api";
 
 const EmployeeGoals = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const EmployeeGoals = () => {
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();
-  }, [value]);
+  }, [value, goals]);
 
   return (
     <div>
@@ -70,6 +70,7 @@ const EmployeeGoals = () => {
             <th>Goal Name</th>
             <th>Status</th>
             <th>Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -78,12 +79,31 @@ const EmployeeGoals = () => {
               <td>{item.goal.goal_name}</td>
               <td>{item.goal.status}</td>
               <td>{item.goal.date.slice(0, 10)}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    deleteGoal(item.goal.id);
+                  }}
+                >
+                  Delete Goal
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
       <form>
+        <button
+          onClick={() => {
+            navigate("/addgoal", {
+              state: { id: location.state.id, role: location.state.role },
+            });
+          }}
+        >
+          Click to add a goal
+        </button>
+
         <button
           onClick={() => {
             localStorage.removeItem("token");

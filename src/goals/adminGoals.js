@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import getGoals from "./api";
+import { getGoals, deleteGoal } from "./api";
 import getEmployeesOfAdmin from "./api2";
 
 const AdminGoals = () => {
@@ -58,7 +58,7 @@ const AdminGoals = () => {
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();
-  }, [value]);
+  }, [value, goals]);
 
   useEffect(() => {
     async function fetchEmployeesOfAdmin() {
@@ -80,6 +80,7 @@ const AdminGoals = () => {
             <th>Gaol Name</th>
             <th>Status</th>
             <th>Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -88,10 +89,29 @@ const AdminGoals = () => {
               <td>{item.goal.goal_name}</td>
               <td>{item.goal.status}</td>
               <td>{item.goal.date.slice(0, 10)}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    deleteGoal(item.goal.id);
+                  }}
+                >
+                  Delete Goal
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <button
+          onClick={() => {
+            navigate("/addgoal", {
+              state: { id: location.state.id, role: location.state.role },
+            });
+          }}
+        >
+          Click to add a goal
+        </button>
 
       <h4>Employees of the {location.state.gdo}</h4>
       <table>
@@ -109,7 +129,11 @@ const AdminGoals = () => {
                 <button
                   onClick={() => {
                     navigate("/goals", {
-                      state: { id: employee.id, name: employee.name },
+                      state: {
+                        id: employee.id,
+                        name: employee.name,
+                        role: "employee",
+                      },
                     });
                   }}
                 >
@@ -121,8 +145,7 @@ const AdminGoals = () => {
         </tbody>
       </table>
 
-      <form>
-        <button
+      <button
           onClick={() => {
             localStorage.removeItem("token");
             navigate("/login");
@@ -130,7 +153,6 @@ const AdminGoals = () => {
         >
           Logout
         </button>
-      </form>
     </div>
   );
 };

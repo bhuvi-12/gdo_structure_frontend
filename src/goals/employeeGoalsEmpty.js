@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import getGoals from "./api";
+import {getGoals} from "./api";
 
 const EmployeeGoalsEmpty = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const EmployeeGoalsEmpty = () => {
 
   useEffect(() => {
     async function fetchGoals() {
-      const responses = getGoals("employee", location.state.id, value);
+      const responses = getGoals(location.state.role, location.state.id, value);
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();

@@ -43,13 +43,13 @@ const Login = (props) => {
                 console.log("response from server",JSON.stringify(response));
 
                 if (response.jwt && response.details[0].role === "employee") {
-                  navigate("/employee/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
+                  navigate("/employee-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
                 }
                 else if(response.jwt && response.details[0].role === "admin"){
-                  navigate("/admin/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id, gdo:response.details[0].gdo}});
+                  navigate("/admin-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id, gdo:response.details[0].gdo}});
                 }
                 else{
-                  navigate("/super-admin/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
+                  navigate("/super-admin-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
                 }
               }}
             >

@@ -3,10 +3,46 @@ async function getGoals(role, id, month) {
     method: "GET",
   };
   const response = await fetch(
-    `/user/goals?id=${id}&role=${role}&month=${month}`,
+    `/goals/goals?id=${id}&role=${role}&month=${month}`,
     requestOptions
   );
   return await response.json();
 }
 
-export default getGoals;
+async function getAdmins(){
+  const requestOptions = {
+    method: "GET",
+  };
+  const response = await fetch(
+    `/users/admin`,
+    requestOptions
+  );
+  return await response.json();
+}
+
+async function addGoal(goalName, status, id, role){
+  const requestOptions = {
+    method:"POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      goal_name:goalName,
+      status:status,
+      date:new Date(),
+      user_id:id,
+      createdAt:new Date(),
+      updatedAt:new Date()
+    }),
+  };
+  return fetch(`/goals/${role}-goals`, requestOptions).then((response) => response.json());
+}
+
+async function deleteGoal(id){
+  const requestOptions = {
+    method:"DELETE",
+  }
+  return fetch(`goals/delete?id=${id}`,requestOptions).then((response) => response.json());
+}
+
+export {getGoals, getAdmins, addGoal, deleteGoal};

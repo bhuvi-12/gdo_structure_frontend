@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import getGoals from "./api";
+import { getGoals, getAdmins, deleteGoal } from "./api";
+import getEmployeesOfAdmin from "./api2";
 
 const SuperAdminGoals = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [goals, setGoals] = useState([]);
+  const [admins, setAdmins] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const date = new Date();
   const presentMonth = date.getMonth();
   const [value, setValue] = useState(presentMonth + 1);
@@ -57,7 +60,21 @@ const SuperAdminGoals = () => {
     }
 
     fetchGoals();
-  }, [value]);
+  }, [value, goals]);
+
+  useEffect(() => {
+    async function fetchAdmins() {
+      const responses = getAdmins();
+      responses.then((response) => setAdmins(response.data));
+    }
+
+    fetchAdmins();
+  }, []);
+
+  async function fetchEmployeesOfAdmin(id) {
+    const responses = getEmployeesOfAdmin(id);
+    responses.then((response) => setEmployees(response.data));
+  }
 
   return (
     <div>
@@ -71,6 +88,7 @@ const SuperAdminGoals = () => {
             <th>Gaol Name</th>
             <th>Status</th>
             <th>Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -79,21 +97,108 @@ const SuperAdminGoals = () => {
               <td>{item.goal.goal_name}</td>
               <td>{item.goal.status}</td>
               <td>{item.goal.date.slice(0, 10)}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    deleteGoal(item.goal.id);
+                  }}
+                >
+                  Delete Goal
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <form>
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/login");
-          }}
-        >
-          Logout
-        </button>
-      </form>
+      <button
+        onClick={() => {
+          navigate("/addgoal", {
+            state: { id: location.state.id, role: location.state.role },
+          });
+        }}
+      >
+        Click to add a goal
+      </button>
+
+      <h4>All the Admins</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Admin Name</th>
+            <th>Goals</th>
+            <th>Employees</th>
+          </tr>
+        </thead>
+        <tbody>
+          {admins.map((admin) => (
+            <tr key={admin.id}>
+              <td>{admin.name}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    navigate("/goals", {
+                      state: { id: admin.id, name: admin.name, role: "admin" },
+                    });
+                  }}
+                >
+                  Goals{" "}
+                </button>
+              </td>
+              <td>
+                <button
+                  onClick={() => {
+                    fetchEmployeesOfAdmin(admin.id);
+                  }}
+                >
+                  Click Here
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h4>Employees of Selected Admin</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>Goals</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((employee) => (
+            <tr key={employee.id}>
+              <td>{employee.name}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    navigate("/goals", {
+                      state: {
+                        id: employee.id,
+                        name: employee.name,
+                        role: "employee",
+                      },
+                    });
+                  }}
+                >
+                  Goals{" "}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
