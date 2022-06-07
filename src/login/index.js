@@ -46,7 +46,7 @@ const Login = (props) => {
                   navigate("/employee/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
                 }
                 else if(response.jwt && response.details[0].role === "admin"){
-                  navigate("/admin/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
+                  navigate("/admin/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id, gdo:response.details[0].gdo}});
                 }
                 else{
                   navigate("/super-admin/goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});

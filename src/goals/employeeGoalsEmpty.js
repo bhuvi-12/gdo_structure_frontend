@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import getGoals from "./api";
-import getEmployeesOfAdmin from "./api2";
 
-const AdminGoals = () => {
+const EmployeeGoalsEmpty = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [goals, setGoals] = useState([]);
-  const [employees, setEmployees] = useState([]);
   const date = new Date();
   const presentMonth = date.getMonth();
   const [value, setValue] = useState(presentMonth + 1);
@@ -47,37 +45,24 @@ const AdminGoals = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/login");
-    }
-  });
-
-  useEffect(() => {
     async function fetchGoals() {
-      const responses = getGoals(location.state.role, location.state.id, value);
+      const responses = getGoals("employee", location.state.id, value);
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();
   }, [value]);
 
-  useEffect(() => {
-    async function fetchEmployeesOfAdmin() {
-      const responses = getEmployeesOfAdmin(location.state.id);
-      responses.then((response) => setEmployees(response.data));
-    }
-    fetchEmployeesOfAdmin();
-  }, []);
-
   return (
     <div>
-      <h4>Welcome {location.state.name} Admin</h4>
+
+        <h4>Goals of Employee {location.state.name}</h4>
 
       <Dropdown options={options} value={value} onChange={handleChange} />
 
       <table>
         <thead>
           <tr>
-            <th>Gaol Name</th>
+            <th>Goal Name</th>
             <th>Status</th>
             <th>Date</th>
           </tr>
@@ -92,47 +77,8 @@ const AdminGoals = () => {
           ))}
         </tbody>
       </table>
-
-      <h4>Employees of the {location.state.gdo}</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>User Name</th>
-            <th>Goals</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((employee) => (
-            <tr key={employee.id}>
-              <td>{employee.name}</td>
-              <td>
-                <button
-                  onClick={() => {
-                    navigate("/goals", {
-                      state: { id: employee.id, name: employee.name },
-                    });
-                  }}
-                >
-                  Goals{" "}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <form>
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/login");
-          }}
-        >
-          Logout
-        </button>
-      </form>
     </div>
   );
 };
 
-export default AdminGoals;
+export default EmployeeGoalsEmpty;
