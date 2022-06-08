@@ -45,4 +45,20 @@ async function deleteGoal(id){
   return fetch(`goals/delete?id=${id}`,requestOptions).then((response) => response.json());
 }
 
-export {getGoals, getAdmins, addGoal, deleteGoal};
+async function updateGoal(goalName, status, id){
+  const requestOptions = {
+    method:"PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id:id,
+      goal_name:goalName,
+      status:status,
+      updatedAt:new Date()
+    }),
+  };
+  return fetch(`/goals/update`, requestOptions).then((response) => response.json());
+}
+
+export {getGoals, getAdmins, addGoal, deleteGoal, updateGoal};

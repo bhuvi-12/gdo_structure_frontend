@@ -7,6 +7,8 @@ import AdminGoals from "./goals/adminGoals";
 import SuperAdminGoals from "./goals/superAdminGoals";
 import EmployeeGoalsEmpty from "./goals/employeeGoalsEmpty";
 import AddGoals from "./goals/addGoals";
+import EditGoals from "./goals/editGoals";
+import SignUp from "./signup";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/super-admin-goals" element={<SuperAdminGoals/>}/>
         <Route path="/goals" element={<EmployeeGoalsEmpty/>}/>
         <Route path="/addgoal" element={<AddGoals/>}/>
+        <Route path="/editgoal" element={<EditGoals/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
       </Routes>
     </>
   );

@@ -77,6 +77,7 @@ const EmployeeGoalsEmpty = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={()=> navigate(-1)}>Go Back</button>
     </div>
   );
 };

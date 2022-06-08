@@ -36,11 +36,9 @@ const Login = (props) => {
               type="submit"
               onClick={async (e) => {
                 e.preventDefault();
-                console.log(`Inside onClick handler: email: ${email}`);
+
                 const response = await login(email, password);
                 localStorage.setItem("token", response.jwt);
-
-                console.log("response from server",JSON.stringify(response));
 
                 if (response.jwt && response.details[0].role === "employee") {
                   navigate("/employee-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
@@ -55,6 +53,14 @@ const Login = (props) => {
             >
               Login
             </button>
+          </li>
+          <li>
+              <button onClick={async (e) => {
+                e.preventDefault();
+                navigate("/signup");
+              }}>
+                SignUp
+              </button>
           </li>
         </ul>
       </form>

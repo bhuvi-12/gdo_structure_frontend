@@ -56,7 +56,7 @@ const EmployeeGoals = () => {
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();
-  }, [value, goals]);
+  }, [value]);
 
   return (
     <div>
@@ -71,6 +71,7 @@ const EmployeeGoals = () => {
             <th>Status</th>
             <th>Date</th>
             <th>Delete</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -83,9 +84,25 @@ const EmployeeGoals = () => {
                 <button
                   onClick={() => {
                     deleteGoal(item.goal.id);
+                    window.location.reload();
                   }}
                 >
                   Delete Goal
+                </button>
+              </td>
+              <td>
+                <button
+                  onClick={() => {
+                    navigate("/editgoal", {
+                      state: {
+                        id: item.goal.id,
+                        gaol_name: item.goal.goal_name,
+                        status: item.goal.status,
+                      },
+                    });
+                  }}
+                >
+                  Edit Goal
                 </button>
               </td>
             </tr>

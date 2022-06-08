@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { addGoal } from "./api";
+import { updateGoal } from "./api";
 
-const AddGoals = () => {
+const EditGoals = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    goalName: "",
-    status: "completed",
+    goalName: location.state.goal_name,
+    status: location.state.status,
   });
 
   async function addGoalToDB(){
-    const responses = addGoal(formData.goalName, formData.status, location.state.id, location.state.role);
-    console.log(responses);
+    updateGoal(formData.goalName, formData.status, location.state.id);
   }
 
   return (
     <div>
-        <label htmlFor="goalName">Goal</label>
+        <label htmlFor="goalName">Change Goal</label>
         <input
           value={formData.goalName}
           type="text"
           name="goalName"
           id="goalName"
+          placeholder="change the goal name"
           onChange={(e) =>
             setFormData({ ...formData, goalName: e.target.value })
           }
         />
         <br />
 
-        <label htmlFor="status">Status</label>
+        <label htmlFor="status">Change Status</label>
         <select
           value={formData.status}
           type="dropdown"
@@ -56,4 +56,4 @@ const AddGoals = () => {
   );
 };
 
-export default AddGoals;
+export default EditGoals;
