@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addUser from "./api";
+import "bootstrap/dist/css/bootstrap.css";
+import "./index.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,21 +17,48 @@ const SignUp = () => {
   });
 
   async function addUsertoDB() {
-    const responses = addUser(
-      formData.name,
-      formData.email,
-      formData.password,
-      formData.mobile,
-      formData.qualification,
-      formData.role,
-      formData.gdo
-    );
-    console.log(responses);
+    var regName = /^[a-zA-Z]+[a-zA-Z]$/;
+    var regMail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+    var regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    var regTel = /^[0-9]{10}$/;
+
+    if (
+      regName.test(formData.name) &&
+      regMail.test(formData.email) &&
+      regPass.test(formData.password) &&
+      regTel.test(formData.mobile)
+    ) {
+      if (
+        (formData.role === "super_admin" && formData.gdo === "gdo") ||
+        (formData.role === "admin" && formData.gdo !== "gdo") ||
+        (formData.role === "employee" && formData.gdo !== "gdo")
+      ) {
+        const responses = addUser(
+          formData.name,
+          formData.email,
+          formData.password,
+          formData.mobile,
+          formData.qualification,
+          formData.role,
+          formData.gdo
+        );
+        console.log(responses);
+        alert("user added successfully");
+        navigate(-1);
+      } else {
+        alert("super_admin should have only GDO ");
+      }
+    } else {
+      alert(
+        "format of name, email, password, mobile should be correct & shouldn't be empty"
+      );
+    }
   }
 
   return (
     <div>
       <form>
+        <h3>Sign Up Form</h3>
         <label htmlFor="username">User Name</label>
         <input
           value={formData.name}
@@ -115,10 +144,9 @@ const SignUp = () => {
         <br />
 
         <button
+          className="button"
           onClick={(e) => {
             addUsertoDB();
-            alert("user added successfully");
-            navigate(-1);
             e.preventDefault();
           }}
         >

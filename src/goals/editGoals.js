@@ -11,19 +11,20 @@ const EditGoals = () => {
     status: location.state.status,
   });
 
-  async function addGoalToDB(){
+  async function addGoalToDB() {
     updateGoal(formData.goalName, formData.status, location.state.id);
   }
 
   return (
     <div>
+      <form>
         <label htmlFor="goalName">Change Goal</label>
         <input
           value={formData.goalName}
           type="text"
           name="goalName"
           id="goalName"
-          placeholder="change the goal name"
+          placeholder="change the goal name if need else leave it"
           onChange={(e) =>
             setFormData({ ...formData, goalName: e.target.value })
           }
@@ -43,7 +44,7 @@ const EditGoals = () => {
           <option value="failed">failed</option>
         </select>
 
-        <button
+        <button className="button3"
           onClick={() => {
             addGoalToDB();
             alert("goal added successfully");
@@ -52,6 +53,7 @@ const EditGoals = () => {
         >
           Submit
         </button>
+      </form>
     </div>
   );
 };

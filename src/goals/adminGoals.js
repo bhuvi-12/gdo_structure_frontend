@@ -70,11 +70,13 @@ const AdminGoals = () => {
 
   return (
     <div>
-      <h4>Welcome {location.state.name} Admin</h4>
+      <h4 className="mt-3">Welcome {location.state.name} Admin</h4>
 
-      <Dropdown options={options} value={value} onChange={handleChange} />
+      <div className="drop">
+        <Dropdown options={options} value={value} onChange={handleChange} />
+      </div>
 
-      <table>
+      <table className="my-4">
         <thead>
           <tr>
             <th>Gaol Name</th>
@@ -92,6 +94,7 @@ const AdminGoals = () => {
               <td>{item.goal.date.slice(0, 10)}</td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     deleteGoal(item.goal.id);
                     window.location.reload();
@@ -102,6 +105,7 @@ const AdminGoals = () => {
               </td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     navigate("/editgoal", {
                       state: {
@@ -121,6 +125,7 @@ const AdminGoals = () => {
       </table>
 
       <button
+      className="button3"
         onClick={() => {
           navigate("/addgoal", {
             state: { id: location.state.id, role: location.state.role },
@@ -130,8 +135,8 @@ const AdminGoals = () => {
         Click to add a goal
       </button>
 
-      <h4>Employees of the {location.state.gdo}</h4>
-      <table>
+      <h4 className="my-3">Employees of the {location.state.gdo}</h4>
+      <table className="my-4">
         <thead>
           <tr>
             <th>User Name</th>
@@ -144,6 +149,7 @@ const AdminGoals = () => {
               <td>{employee.name}</td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     navigate("/goals", {
                       state: {
@@ -163,6 +169,7 @@ const AdminGoals = () => {
       </table>
 
       <button
+      className="button3"
         onClick={() => {
           localStorage.removeItem("token");
           navigate("/login");

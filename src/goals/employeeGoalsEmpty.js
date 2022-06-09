@@ -57,7 +57,9 @@ const EmployeeGoalsEmpty = () => {
 
         <h4>Goals of Employee {location.state.name}</h4>
 
-      <Dropdown options={options} value={value} onChange={handleChange} />
+        <div className="drop">
+        <Dropdown options={options} value={value} onChange={handleChange} />
+      </div>
 
       <table>
         <thead>
@@ -77,7 +79,7 @@ const EmployeeGoalsEmpty = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={()=> navigate(-1)}>Go Back</button>
+      <button className="button3" onClick={()=> navigate(-1)}>Go Back</button>
     </div>
   );
 };

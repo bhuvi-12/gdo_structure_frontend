@@ -33,21 +33,47 @@ const Login = (props) => {
           </li>
           <li>
             <button
+              className="button"
               type="submit"
               onClick={async (e) => {
                 e.preventDefault();
 
                 const response = await login(email, password);
-                localStorage.setItem("token", response.jwt);
+                console.log(response);
+                if (response.message) {
+                  alert(response.message);
+                } else {
+                  localStorage.setItem("token", response.jwt);
 
-                if (response.jwt && response.details[0].role === "employee") {
-                  navigate("/employee-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
-                }
-                else if(response.jwt && response.details[0].role === "admin"){
-                  navigate("/admin-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id, gdo:response.details[0].gdo}});
-                }
-                else{
-                  navigate("/super-admin-goals",{state:{name:response.details[0].name, role:response.details[0].role, id:response.details[0].id}});
+                  if (response.jwt && response.details[0].role === "employee") {
+                    navigate("/employee-goals", {
+                      state: {
+                        name: response.details[0].name,
+                        role: response.details[0].role,
+                        id: response.details[0].id,
+                      },
+                    });
+                  } else if (
+                    response.jwt &&
+                    response.details[0].role === "admin"
+                  ) {
+                    navigate("/admin-goals", {
+                      state: {
+                        name: response.details[0].name,
+                        role: response.details[0].role,
+                        id: response.details[0].id,
+                        gdo: response.details[0].gdo,
+                      },
+                    });
+                  } else {
+                    navigate("/super-admin-goals", {
+                      state: {
+                        name: response.details[0].name,
+                        role: response.details[0].role,
+                        id: response.details[0].id,
+                      },
+                    });
+                  }
                 }
               }}
             >
@@ -55,12 +81,15 @@ const Login = (props) => {
             </button>
           </li>
           <li>
-              <button onClick={async (e) => {
+            <button
+              className="button"
+              onClick={async (e) => {
                 e.preventDefault();
                 navigate("/signup");
-              }}>
-                SignUp
-              </button>
+              }}
+            >
+              SignUp
+            </button>
           </li>
         </ul>
       </form>

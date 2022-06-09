@@ -78,9 +78,11 @@ const SuperAdminGoals = () => {
 
   return (
     <div>
-      <h4>Welcome {location.state.name} Super-Admin</h4>
+      <h4 className="mt-3">Welcome {location.state.name} Super-Admin</h4>
 
-      <Dropdown options={options} value={value} onChange={handleChange} />
+      <div className="drop">
+        <Dropdown options={options} value={value} onChange={handleChange} />
+      </div>
 
       <table>
         <thead>
@@ -121,6 +123,7 @@ const SuperAdminGoals = () => {
       </table>
 
       <button
+      className="button3"
         onClick={() => {
           navigate("/addgoal", {
             state: { id: location.state.id, role: location.state.role },
@@ -130,7 +133,7 @@ const SuperAdminGoals = () => {
         Click to add a goal
       </button>
 
-      <h4>All the Admins</h4>
+      <h4 className="my-4">All the Admins</h4>
       <table>
         <thead>
           <tr>
@@ -145,6 +148,7 @@ const SuperAdminGoals = () => {
               <td>{admin.name}</td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     navigate("/goals", {
                       state: { id: admin.id, name: admin.name, role: "admin" },
@@ -156,6 +160,7 @@ const SuperAdminGoals = () => {
               </td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     fetchEmployeesOfAdmin(admin.id);
                   }}
@@ -168,7 +173,7 @@ const SuperAdminGoals = () => {
         </tbody>
       </table>
 
-      <h4>Employees of Selected Admin</h4>
+      <h4 className="my-4">Employees of Selected Admin</h4>
       <table>
         <thead>
           <tr>
@@ -182,6 +187,7 @@ const SuperAdminGoals = () => {
               <td>{employee.name}</td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     navigate("/goals", {
                       state: {
@@ -201,6 +207,7 @@ const SuperAdminGoals = () => {
       </table>
 
       <button
+      className="button3"
         onClick={() => {
           localStorage.removeItem("token");
           navigate("/login");

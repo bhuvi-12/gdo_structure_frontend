@@ -1,0 +1,33 @@
+.drop{
+    text-align: center;
+}
+
+.button2 {
+    background-color: #045daa;
+    color: white;
+    border-radius: 5px;
+    border: #ccc;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button2:hover {
+    opacity: 0.8;
+  }
+
+  .button3 {
+    background-color: #045daa;
+    color: white;
+    padding: 5px 10px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: #ccc;
+    cursor: pointer;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button3:hover {
+    opacity: 0.8;
+  }

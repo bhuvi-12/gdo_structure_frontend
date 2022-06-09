@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getGoals, deleteGoal } from "./api";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.css";
+import { Table } from "reactstrap";
 
 const EmployeeGoals = () => {
   const navigate = useNavigate();
@@ -60,11 +63,13 @@ const EmployeeGoals = () => {
 
   return (
     <div>
-      <h4>Welcome {location.state.name} Employee</h4>
+      <h4 className="mt-3">Welcome {location.state.name} Employee</h4>
 
-      <Dropdown options={options} value={value} onChange={handleChange} />
+      <div className="drop">
+        <Dropdown options={options} value={value} onChange={handleChange} />
+      </div>
 
-      <table>
+      <table className="my-4">
         <thead>
           <tr>
             <th>Goal Name</th>
@@ -82,6 +87,7 @@ const EmployeeGoals = () => {
               <td>{item.goal.date.slice(0, 10)}</td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     deleteGoal(item.goal.id);
                     window.location.reload();
@@ -92,6 +98,7 @@ const EmployeeGoals = () => {
               </td>
               <td>
                 <button
+                className="button2"
                   onClick={() => {
                     navigate("/editgoal", {
                       state: {
@@ -112,6 +119,7 @@ const EmployeeGoals = () => {
 
       <form>
         <button
+        className="button my-3"
           onClick={() => {
             navigate("/addgoal", {
               state: { id: location.state.id, role: location.state.role },
@@ -122,6 +130,7 @@ const EmployeeGoals = () => {
         </button>
 
         <button
+        className="button"  
           onClick={() => {
             localStorage.removeItem("token");
             navigate("/login");

@@ -9,31 +9,32 @@ input[type=email], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
   }
-  input[type=text]{
-    width: 50%;
+  input[type=text],input[type=tel]{
+    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    align-items: center;
   }
   
-  button {
+  .button {
     background-color: #045daa;
     color: white;
-    padding: 10px 20px;
-    margin: 20px auto;
-    border: none;
+    padding: 5px 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: #ccc;
     cursor: pointer;
     width: 30%;
     display: flex;
     justify-content: center;
   }
   
-  button:hover {
+  .button:hover {
     opacity: 0.8;
   }
+  
   form{
       width: 50%;
       margin: auto;
@@ -54,9 +55,4 @@ input[type=email], input[type=password] {
   table, th, td {
     border: 1px solid;
     padding: 10px 15px 10px 15px;
-  }
-  select{
-    margin: 15px auto;
-    padding: 5px;
-    display: block;
   }

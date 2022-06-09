@@ -18,6 +18,7 @@ const AddGoals = () => {
 
   return (
     <div>
+        <form>
         <label htmlFor="goalName">Goal</label>
         <input
           value={formData.goalName}
@@ -43,15 +44,17 @@ const AddGoals = () => {
           <option value="failed">failed</option>
         </select>
 
-        <button
-          onClick={() => {
+        <button className="button3"
+          onClick={(e) => {
             addGoalToDB();
             alert("goal added successfully");
             navigate(-1);
+            e.preventDefault();
           }}
         >
           Submit
         </button>
+        </form>
     </div>
   );
 };
