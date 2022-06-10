@@ -39,7 +39,7 @@ const Login = (props) => {
                 e.preventDefault();
 
                 const response = await login(email, password);
-                console.log(response);
+
                 if (response.message) {
                   alert(response.message);
                 } else {

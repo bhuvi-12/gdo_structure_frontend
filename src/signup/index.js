@@ -42,7 +42,7 @@ const SignUp = () => {
           formData.role,
           formData.gdo
         );
-        console.log(responses);
+
         alert("user added successfully");
         navigate(-1);
       } else {

@@ -31,3 +31,8 @@
   .button3:hover {
     opacity: 0.8;
   }
+
+  .goaladd{
+    width: 50%;
+    margin: auto;
+  }

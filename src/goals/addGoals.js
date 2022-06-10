@@ -12,13 +12,12 @@ const AddGoals = () => {
   });
 
   async function addGoalToDB(){
-    const responses = addGoal(formData.goalName, formData.status, location.state.id, location.state.role);
-    console.log(responses);
+    addGoal(formData.goalName, formData.status, location.state.id, location.state.role);
   }
 
   return (
     <div>
-        <form>
+        <div className="goaladd">
         <label htmlFor="goalName">Goal</label>
         <input
           value={formData.goalName}
@@ -54,7 +53,7 @@ const AddGoals = () => {
         >
           Submit
         </button>
-        </form>
+        </div>
     </div>
   );
 };
