@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import addUser from "./api";
+import { addUser, checkAdmins } from "./api";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
@@ -19,7 +19,8 @@ const SignUp = () => {
   async function addUsertoDB() {
     var regName = /^[a-zA-Z]+[a-zA-Z]$/;
     var regMail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-    var regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    var regPass =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     var regTel = /^[0-9]{10}$/;
 
     if (
@@ -33,20 +34,28 @@ const SignUp = () => {
         (formData.role === "admin" && formData.gdo !== "gdo") ||
         (formData.role === "employee" && formData.gdo !== "gdo")
       ) {
-        const responses = addUser(
-          formData.name,
-          formData.email,
-          formData.password,
-          formData.mobile,
-          formData.qualification,
-          formData.role,
-          formData.gdo
+        const response = await checkAdmins(formData.role, formData.gdo).then(
+          (result) => {
+            return result.data;
+          }
         );
-
-        alert("user added successfully");
-        navigate(-1);
+        if (response === null || formData.role === "employee") {
+          addUser(
+            formData.name,
+            formData.email,
+            formData.password,
+            formData.mobile,
+            formData.qualification,
+            formData.role,
+            formData.gdo
+          );
+          alert("user added successfully");
+          navigate(-1);
+        } else {
+          alert("super_admin should only be one & one gdo should only have one admin");
+        }
       } else {
-        alert("super_admin should have only GDO ");
+        alert("super_admin should only have GDO ");
       }
     } else {
       alert(
