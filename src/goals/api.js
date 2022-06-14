@@ -1,6 +1,9 @@
 async function getGoals(role, id, month) {
   const requestOptions = {
     method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
   };
   const response = await fetch(
     `/goals/goals?id=${id}&role=${role}&month=${month}`,
@@ -12,6 +15,9 @@ async function getGoals(role, id, month) {
 async function getAdmins(){
   const requestOptions = {
     method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
   };
   const response = await fetch(
     `/users/admin`,
@@ -24,6 +30,7 @@ async function addGoal(goalName, status, id, role){
   const requestOptions = {
     method:"POST",
     headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -41,6 +48,9 @@ async function addGoal(goalName, status, id, role){
 async function deleteGoal(id){
   const requestOptions = {
     method:"DELETE",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
   }
   return fetch(`goals/delete?id=${id}`,requestOptions).then((response) => response.json());
 }
@@ -50,6 +60,7 @@ async function updateGoal(goalName, status, id){
     method:"PUT",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       id:id,

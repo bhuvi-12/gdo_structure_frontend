@@ -17,8 +17,8 @@ const EditGoals = () => {
 
   return (
     <div>
-      <form>
-        <label htmlFor="goalName">Change Goal</label>
+      <div className="goaladd">
+      <label htmlFor="goalName">Change Goal</label>
         <input
           value={formData.goalName}
           type="text"
@@ -47,13 +47,13 @@ const EditGoals = () => {
         <button className="button3"
           onClick={() => {
             addGoalToDB();
-            alert("goal added successfully");
+            alert("goal edited successfully");
             navigate(-1);
           }}
         >
           Submit
         </button>
-      </form>
+      </div>
     </div>
   );
 };

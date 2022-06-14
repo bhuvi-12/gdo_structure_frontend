@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -6,23 +6,13 @@ import DisplayGoals from "./displayGoals";
 
 const EmployeeGoals = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/login");
-    }
-  });
+  const { state } = useLocation();
 
   return (
-    <div>
-      <h4 className="mt-3">Welcome {location.state.name} Employee</h4>
-      <DisplayGoals
-        name={location.state.name}
-        id={location.state.id}
-        role={location.state.role}
-      />
-
+    <div>{
+      localStorage.getItem("token")?<div>
+      <h4 className="mt-3">Welcome {state.name} Employee</h4>
+      <DisplayGoals name={state.name} id={state.id} role={state.role} />
       <button
         className="button3"
         onClick={() => {
@@ -32,6 +22,10 @@ const EmployeeGoals = () => {
       >
         Logout
       </button>
+    </div>:<div><button className="button3" onClick={(e)=> {
+      navigate("/login")
+    }}>Go to Login Page</button></div>
+    }
     </div>
   );
 };

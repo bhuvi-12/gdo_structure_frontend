@@ -123,7 +123,7 @@ const DisplayGoals = (props) => {
             });
           }}
         >
-          Click to add a goal
+          Add a goal
         </button>
 
       </div>

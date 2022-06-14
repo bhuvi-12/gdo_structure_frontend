@@ -32,6 +32,9 @@ async function addUser(
 async function checkAdmins(role, gdo) {
   const requestOptions = {
     method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
   };
   return fetch(`users/gdo-admit?role=${role}&gdo=${gdo}`, requestOptions).then(
     (response) => response.json()
