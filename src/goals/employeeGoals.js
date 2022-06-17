@@ -11,7 +11,7 @@ const EmployeeGoals = () => {
   return (
     <div>{
       localStorage.getItem("token")?<div>
-      <h4 className="mt-3">Welcome {state.name} Employee</h4>
+      <h4 className="mt-3">Welcome {state.name} Employee {state.gdo}</h4>
       <DisplayGoals name={state.name} id={state.id} role={state.role} />
       <button
         className="button3"

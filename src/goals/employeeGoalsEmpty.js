@@ -73,7 +73,7 @@ const EmployeeGoalsEmpty = () => {
           {goals.map((item) => (
             <tr key={item.goal.id}>
               <td>{item.goal.goal_name}</td>
-              <td>{item.goal.status}</td>
+              <td>{item.goal.status.status}</td>
               <td>{item.goal.date.slice(0, 10)}</td>
             </tr>
           ))}

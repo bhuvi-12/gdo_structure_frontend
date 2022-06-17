@@ -20,7 +20,7 @@ const AdminGoals = () => {
     <div>
       {localStorage.getItem("token") ? (
         <div>
-          <h4 className="mt-3">Welcome {location.state.name} Admin</h4>
+          <h4 className="mt-3">Welcome {location.state.name} Admin {location.state.gdo}</h4>
           <DisplayGoals
             name={location.state.name}
             id={location.state.id}
@@ -37,16 +37,16 @@ const AdminGoals = () => {
             </thead>
             <tbody>
               {employees.map((employee) => (
-                <tr key={employee.id}>
-                  <td>{employee.name}</td>
+                <tr key={employee.user.id}>
+                  <td>{employee.user.name}</td>
                   <td>
                     <button
                       className="button2"
                       onClick={() => {
                         navigate("/goals", {
                           state: {
-                            id: employee.id,
-                            name: employee.name,
+                            id: employee.user.id,
+                            name: employee.user.name,
                             role: "employee",
                           },
                         });

@@ -17,10 +17,13 @@ const SignUp = () => {
   });
 
   async function addUsertoDB() {
+    //eslint-disable-next-line
     var regName = /^[a-zA-Z]+[a-zA-Z]$/;
+    //eslint-disable-next-line
     var regMail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-    var regPass =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    //eslint-disable-next-line
+    var regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    //eslint-disable-next-line
     var regTel = /^[0-9]{10}$/;
 
     if (

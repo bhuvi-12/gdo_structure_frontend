@@ -80,7 +80,7 @@ const DisplayGoals = (props) => {
           {goals.map((item) => (
             <tr key={item.goal.id}>
               <td>{item.goal.goal_name}</td>
-              <td>{item.goal.status}</td>
+              <td>{item.goal.status.status}</td>
               <td>{item.goal.date.slice(0, 10)}</td>
               <td>
                 <button
@@ -101,7 +101,7 @@ const DisplayGoals = (props) => {
                       state: {
                         id: item.goal.id,
                         gaol_name: item.goal.goal_name,
-                        status: item.goal.status,
+                        status: item.goal.status.status,
                       },
                     });
                   }}

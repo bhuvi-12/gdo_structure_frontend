@@ -45,32 +45,32 @@ const Login = (props) => {
                 } else {
                   localStorage.setItem("token", response.jwt);
 
-                  if (response.jwt && response.details[0].role === "employee") {
+                  if (response.jwt && response.details.role === "employee") {
                     navigate("/employee-goals", {
                       state: {
-                        name: response.details[0].name,
-                        role: response.details[0].role,
-                        id: response.details[0].id,
+                        name: response.details.user.name,
+                        role: response.details.role,
+                        id: response.details.user.id,
                       },
                     });
                   } else if (
                     response.jwt &&
-                    response.details[0].role === "admin"
+                    response.details.role === "admin"
                   ) {
                     navigate("/admin-goals", {
                       state: {
-                        name: response.details[0].name,
-                        role: response.details[0].role,
-                        id: response.details[0].id,
-                        gdo: response.details[0].gdo,
+                        name: response.details.user.name,
+                        role: response.details.role,
+                        id: response.details.user.id,
+                        gdo: response.gdo,
                       },
                     });
                   } else {
                     navigate("/super-admin-goals", {
                       state: {
-                        name: response.details[0].name,
-                        role: response.details[0].role,
-                        id: response.details[0].id,
+                        name: response.details.user.name,
+                        role: response.details.role,
+                        id: response.details.user.id,
                       },
                     });
                   }

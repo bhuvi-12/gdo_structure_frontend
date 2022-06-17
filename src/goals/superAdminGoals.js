@@ -28,7 +28,7 @@ const SuperAdminGoals = () => {
     <div>
       {localStorage.getItem("token") ? (
         <div>
-          <h4 className="mt-3">Welcome {state.name} Employee</h4>
+          <h4 className="mt-3">Welcome {state.name} Super Admin</h4>
           <DisplayGoals name={state.name} id={state.id} role={state.role} />
           <h4 className="my-4">All the Admins</h4>
           <table>
@@ -41,16 +41,16 @@ const SuperAdminGoals = () => {
             </thead>
             <tbody>
               {admins.map((admin) => (
-                <tr key={admin.id}>
-                  <td>{admin.name}</td>
+                <tr key={admin.user.id}>
+                  <td>{admin.user.name}</td>
                   <td>
                     <button
                       className="button2"
                       onClick={() => {
                         navigate("/goals", {
                           state: {
-                            id: admin.id,
-                            name: admin.name,
+                            id: admin.user.id,
+                            name: admin.user.name,
                             role: "admin",
                           },
                         });
@@ -63,7 +63,7 @@ const SuperAdminGoals = () => {
                     <button
                       className="button2"
                       onClick={() => {
-                        fetchEmployeesOfAdmin(admin.id);
+                        fetchEmployeesOfAdmin(admin.user.id);
                       }}
                     >
                       Click Here
@@ -84,16 +84,16 @@ const SuperAdminGoals = () => {
             </thead>
             <tbody>
               {employees.map((employee) => (
-                <tr key={employee.id}>
-                  <td>{employee.name}</td>
+                <tr key={employee.user.id}>
+                  <td>{employee.user.name}</td>
                   <td>
                     <button
                       className="button2"
                       onClick={() => {
                         navigate("/goals", {
                           state: {
-                            id: employee.id,
-                            name: employee.name,
+                            id: employee.user.id,
+                            name: employee.user.name,
                             role: "employee",
                           },
                         });
