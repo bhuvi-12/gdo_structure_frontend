@@ -12,7 +12,7 @@ const EditGoals = () => {
   });
 
   async function addGoalToDB() {
-    updateGoal(formData.goalName, formData.status, location.state.id);
+    updateGoal(formData.goalName, formData.status, location.state.id, location.state.userId);
   }
 
   return (

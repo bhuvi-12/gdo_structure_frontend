@@ -6,6 +6,20 @@ async function getGoals(role, id, month) {
     },
   };
   const response = await fetch(
+    `/goals/goals?month=${month}`,
+    requestOptions
+  );
+  return await response.json();
+}
+
+async function getOtherGoals(role, id, month) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+  const response = await fetch(
     `/goals/goals?id=${id}&role=${role}&month=${month}`,
     requestOptions
   );
@@ -42,20 +56,20 @@ async function addGoal(goalName, status, id, role){
       updatedAt:new Date()
     }),
   };
-  return fetch(`/goals/${role}-goals`, requestOptions).then((response) => response.json());
+  return fetch(`/goals/${role}-goals?user_id=${id}`, requestOptions).then((response) => response.json());
 }
 
-async function deleteGoal(id){
+async function deleteGoal(id,userId){
   const requestOptions = {
     method:"DELETE",
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
   }
-  return fetch(`goals/delete?id=${id}`,requestOptions).then((response) => response.json());
+  return fetch(`goals/delete?id=${id}&user_id=${userId}`,requestOptions).then((response) => response.json());
 }
 
-async function updateGoal(goalName, status, id){
+async function updateGoal(goalName, status, id, userId){
   const requestOptions = {
     method:"PUT",
     headers: {
@@ -69,7 +83,7 @@ async function updateGoal(goalName, status, id){
       updatedAt:new Date()
     }),
   };
-  return fetch(`/goals/update`, requestOptions).then((response) => response.json());
+  return fetch(`/goals/update?user_id=${userId}`, requestOptions).then((response) => response.json());
 }
 
-export {getGoals, getAdmins, addGoal, deleteGoal, updateGoal};
+export {getGoals, getOtherGoals, getAdmins, addGoal, deleteGoal, updateGoal};

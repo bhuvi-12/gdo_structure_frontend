@@ -17,7 +17,7 @@ const SuperAdminGoals = () => {
     }
 
     fetchAdmins();
-  }, [admins]);
+  }, []);
 
   async function fetchEmployeesOfAdmin(id) {
     const responses = getEmployeesOfAdmin(id);
@@ -74,38 +74,40 @@ const SuperAdminGoals = () => {
             </tbody>
           </table>
 
-          <h4 className="my-4">Employees of Selected Admin</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>User Name</th>
-                <th>Goals</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map((employee) => (
-                <tr key={employee.user.id}>
-                  <td>{employee.user.name}</td>
-                  <td>
-                    <button
-                      className="button2"
-                      onClick={() => {
-                        navigate("/goals", {
-                          state: {
-                            id: employee.user.id,
-                            name: employee.user.name,
-                            role: "employee",
-                          },
-                        });
-                      }}
-                    >
-                      Goals{" "}
-                    </button>
-                  </td>
+          <div>{
+            employees.length ? <div><h4 className="my-4">Employees of Selected Admin</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Goals</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {employees.map((employee) => (
+                  <tr key={employee.user.id}>
+                    <td>{employee.user.name}</td>
+                    <td>
+                      <button
+                        className="button2"
+                        onClick={() => {
+                          navigate("/goals", {
+                            state: {
+                              id: employee.user.id,
+                              name: employee.user.name,
+                              role: "employee",
+                            },
+                          });
+                        }}
+                      >
+                        Goals{" "}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table></div>:<div></div>
+            }</div>
 
           <button
             className="button3"

@@ -66,7 +66,8 @@ const DisplayGoals = (props) => {
         <Dropdown options={options} value={value} onChange={handleChange} />
       </div>
 
-      <table className="my-4">
+      <div>{
+        goals.length?<div><table className="my-4">
         <thead>
           <tr>
             <th>Goal Name</th>
@@ -86,7 +87,7 @@ const DisplayGoals = (props) => {
                 <button
                 className="button2"
                   onClick={() => {
-                    deleteGoal(item.goal.id);
+                    deleteGoal(item.goal.id,props.id);
                     window.location.reload();
                   }}
                 >
@@ -102,6 +103,7 @@ const DisplayGoals = (props) => {
                         id: item.goal.id,
                         gaol_name: item.goal.goal_name,
                         status: item.goal.status.status,
+                        userId: props.id,
                       },
                     });
                   }}
@@ -112,7 +114,9 @@ const DisplayGoals = (props) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div> : 
+      <div><h3>No records to show for selected month</h3></div>
+        }</div>
 
       <div>
         <button

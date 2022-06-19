@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {getGoals} from "./api";
+import {getOtherGoals} from "./api";
 
 const EmployeeGoalsEmpty = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const EmployeeGoalsEmpty = () => {
 
   useEffect(() => {
     async function fetchGoals() {
-      const responses = getGoals(location.state.role, location.state.id, value);
+      const responses = getOtherGoals(location.state.role, location.state.id, value);
       responses.then((response) => setGoals(response.data));
     }
     fetchGoals();
@@ -61,7 +61,8 @@ const EmployeeGoalsEmpty = () => {
         <Dropdown options={options} value={value} onChange={handleChange} />
       </div>
 
-      <table>
+      <div>{
+        goals.length?<div><table>
         <thead>
           <tr>
             <th>Goal Name</th>
@@ -78,7 +79,8 @@ const EmployeeGoalsEmpty = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>:<div><h3>No records to show for selected month</h3></div>
+        }</div>
       <button className="button3" onClick={()=> navigate(-1)}>Go Back</button>
     </div>
   );
